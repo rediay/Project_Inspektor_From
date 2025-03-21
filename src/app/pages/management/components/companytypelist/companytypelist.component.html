@@ -1,0 +1,9 @@
+<nb-card>
+    <nb-card-header>
+        {{"ManageModule.ADMINISTRAR_TIPOS_DE_LISTAS_POR_CONSULTA"| translate }}
+    </nb-card-header>
+    <nb-card-body>
+        <nb-toggle labelPosition="start" (change)="setCheckedStatus($event)">Activación / inactivación masiva</nb-toggle>
+        <ng2-smart-table #table class="example-smart-table" [settings]="settings" [source]="data" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+    </nb-card-body>
+</nb-card>

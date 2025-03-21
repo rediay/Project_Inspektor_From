@@ -1,0 +1,829 @@
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.619/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.619/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.619/styles/kendo.material.mobile.min.css" />
+
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <button nbButton status="primary" [routerLink]="['/pages/queries/individual']" class="ml-2">Realizar nueva
+            consulta</button>
+    </div>
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header class="text-center">
+                <h1>Consulta No. {{idQueryCompany}}</h1>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="d-flex justify-content-center">
+                    <div class="row col-lg-8 col-md-8 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center report-tittle">
+                                    <p> <b>Información Consulta</b></p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Nombre de Usuario Consulta</b></p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{nameUser}}</p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Usuario de Consulta</b> </p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{user}}</p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Fecha y Hora de Consulta</b> </p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{dateQuery | date:'medium'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center report-tittle">
+                                    <p> <b>Datos Consultados</b></p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Nombre</b></p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{name}}</p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Numero de identificación</b> </p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{document}}</p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-subtittle">
+                                    <p><b>Tipo de Tercero</b> </p>
+                                </div>
+                                <div class="col-6 d-flex justify-content-center report-text">
+                                    <p>{{thirdType}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-3 mb-3">
+                        <div class="card border h-100 border-dark">
+                            <div class="card-body">
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-container col-12">
+                        <nb-accordion multi>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #990000 !important;color:black;  -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Listas Restrictivas ({{restrictiveLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="settings"
+                                        [source]="restrictiveLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #ff0000 !important;color:black; -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Listas Asociadas a LA/FT, Corrupción u otros delitos (Penal)
+                                    ({{laftPenalLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="settings"
+                                        [source]="laftPenalLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #FCBF17 !important;color:black; -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Listas Asociadas a LA/FT, Corrupción u otros similares (Administrativo)
+                                    ({{laftAdminLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="settings"
+                                        [source]="laftAdminLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #FCBF17 !important;color:black; -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Sanciones Administrativas y Listas de Afectación Financiera
+                                    ({{sanctionsAffectationLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="settings"
+                                        [source]="sanctionsAffectationLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #008000 !important;color:black; -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Listas Informativas y PEPS ({{pepsLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="settings"
+                                        [source]="pepsLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item>
+                                <nb-accordion-item-header
+                                    style="background-color: #284775 !important;color:black; -webkit-text-stroke-width: 0.1px;-webkit-text-stroke-color: black;">
+                                    Listas Propias ({{ownLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="ownListsSettings"
+                                        [source]="ownLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasProcuraduria">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Resultado Procuraduria
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div [innerHTML]="procuraduriaHtml"></div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasProcuraduriaError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Resultado Procuraduria
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{procuraduriaError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasRamaJudicialJEMPS">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Rama Judicial JEPMS ({{RamaJempsLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="RamaJempsSettings"
+                                        [source]="RamaJempsLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRamaJudicialJEMPSError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Rama Judicial JEPMS
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{ramaJudicialJEMPSError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasRamaJudicial">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Rama Judicial ({{RamaLists.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="RamaSettings"
+                                        [source]="RamaLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRamaJudicialError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Rama Judicial 
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{ramaJudicialError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        
+                            <nb-accordion-item  *ngIf="hasMilitary">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio Ejercito Nacional
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Tipo Reservista</th>
+                                                <th scope="col">Lugar</th>
+                                                <th scope="col">Dirección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{military?.ResultName}}</td>
+                                                <td>{{military?.StatusResult}}</td>
+                                                <td>{{military?.PlaceResult}}</td>
+                                                <td>{{military?.AddressResult}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasMilitaryError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio Ejercito Nacional 
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{militaryError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRues">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio RUES
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="RuesSettings"
+                                                     [source]="RuesLists">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRuesError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio RUES 
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{ruesError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasSuperSocieties">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio SuperSociedades
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Dirección Judicial</th>
+                                                <th scope="col">Ciudad Judicial</th>
+                                                <th scope="col">Departamento Judicial</th>
+                                                <th scope="col">Dirección Domicilio</th>
+                                                <th scope="col">Ciudad Domicilio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{superSocieties?.direccionJudicial}}</td>
+                                                <td>{{superSocieties?.ciudadJudicial}}</td>
+                                                <td>{{superSocieties?.departamentoJudicial}}</td>
+                                                <td>{{superSocieties?.direccionDomicilio}}</td>
+                                                <td>{{superSocieties?.ciudadDomicilio}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Departamento Domicilio</th>
+                                                <th scope="col">Correo Electrónico</th>
+                                                <th scope="col">Nit</th>
+                                                <th scope="col">Razón Social</th>
+                                                <th scope="col">Expediente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{superSocieties?.departamentoDomicilio}}</td>
+                                                <td>{{superSocieties?.correoElectronico}}</td>
+                                                <td>{{superSocieties?.nit}}</td>
+                                                <td>{{superSocieties?.razonSocial}}</td>
+                                                <td>{{superSocieties?.expediente}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Sigla</th>
+                                                <th scope="col">Objeto Social</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Fecha Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{superSocieties?.sigla}}</td>
+                                                <td>{{superSocieties?.objetoSocial}}</td>
+                                                <td>{{superSocieties?.estado}}</td>
+                                                <td>{{superSocieties?.fechaEstado}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Etapa Situación</th>
+                                                <th scope="col">Fecha Situación</th>
+                                                <th scope="col">Fecha Etapa</th>
+                                                <th scope="col">Causal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{superSocieties?.etapaSituacion}}</td>
+                                                <td>{{superSocieties?.fechaSituacion}}</td>
+                                                <td>{{superSocieties?.fechaEtapa}}</td>
+                                                <td>{{superSocieties?.causal}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Junta Directiva Principal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <tr *ngFor="let val of superSocieties?.juntaDirectivaPrincipal">
+                                                <td scope="row">{{val}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Junta Directiva Suplente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <tr *ngFor="let val of superSocieties?.juntaDirectivaSuplente">
+                                                <td scope="row">{{val}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table mt-3 table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Contador</th>
+                                                <th scope="col">Revisor Fiscal</th>
+                                                <th scope="col">Representante Legal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <tr >
+                                                <td scope="row">{{superSocieties?.contador}}</td>
+                                                <td >{{superSocieties?.revisorFiscal}}</td>
+                                                <td >{{superSocieties?.representanteLegal}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasSuperSocietiesError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio SuperSociedades 
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">{{tituloSuperSocieties}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{superSocietiesError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRegistryDeaths">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio Defunciones Registraduria
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Vigencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{registryDeaths?.vigencia}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasRegistryDeathsError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Servicio Defunciones Registraduria
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{registryDeathsError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasSimit">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta servicio SIMIT ({{SimitList.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="SimitSettings"
+                                        [source]="SimitList">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasSimitError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta servicio SIMIT
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">{{tituloSimit}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{simitError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasEstadoEPS">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta de Estado EPS
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="EpsSettings"
+                                                     [source]="EpsList">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasEstadoEPSError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta de Estado EPS
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{epsError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasEstadoPermiso">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta de Estado Permiso por Protección temporal (nacionales venezolanos)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Tipo identificación</th>
+                                                <th scope="col">Identificación</th>
+                                                <th scope="col">Correo</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{Ppt?.Name}}</td>
+                                                <td>{{Ppt?.IdentificationType}}</td>
+                                                <td>{{Ppt?.Identification}}</td>
+                                                <td>{{Ppt?.Correo}}</td>
+                                                <td>{{Ppt?.Telefono}}</td>
+                                                <td>{{Ppt?.Status}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasEstadoPermisoError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Consulta de Estado Permiso por Protección temporal (nacionales venezolanos)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{pptError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasAntecedentesCriminales">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Pasado Judicial
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Antecedente</th>
+                                                <th scope="col">Tipo documento</th>
+                                                <th scope="col">Documento</th>
+                                                <th scope="col">Nombre</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{criminalRecordEcuador?.criminalRecord}}</td>
+                                                <td>{{criminalRecordEcuador?.documentType}}</td>
+                                                <td>{{criminalRecordEcuador?.document}}</td>
+                                                <td>{{criminalRecordEcuador?.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasAntecedentesCriminalesError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Pasado Judicial
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{criminalRecordEcuadorError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item *ngIf="hasInformacionJudicial">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    información Judicial ({{infoJudicialEcuadorList.count()}} Resultados)
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <ng2-smart-table class="example-smart-table" [settings]="infoJudicialEcuadorSettings"
+                                        [source]="infoJudicialEcuadorList">
+                                    </ng2-smart-table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasInformacionJudicialError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    información Judicial
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{infoJudicialEcuadorError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasSunat">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Sunat
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Número de RUC</th>
+                                                <th scope="col">Tipo Contribuyente</th>
+                                                <th scope="col">Nombre Comercial</th>
+                                                <th scope="col">Fecha de Inscripción</th>
+                                                <th scope="col">Fecha de Inicio de Actividades</th>
+                                                <th scope="col">Estado del Contribuyente</th>
+                                                <th scope="col">Condición del Contribuyente</th>
+                                                <th scope="col">Domicilio Fiscal</th>
+                                                <th scope="col">Sistema Emisión de Comprobante</th>
+                                                <th scope="col">Actividad Comercio Exterior</th>
+                                                <th scope="col">Sistema Contabilidad</th>
+                                                <th scope="col">Actividad(es) Económica(s)</th>
+                                                <th scope="col">Comprobantes de Pago c/aut. de impresión (F. 806 u 816)</th>
+                                                <th scope="col">Sistema de Emisión Electrónica</th>
+                                                <th scope="col">Emisor electrónico desde</th>
+                                                <th scope="col">Comprobantes Electrónicos</th>
+                                                <th scope="col">Afiliado al PLE desde</th>
+                                                <th scope="col">Padrones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row">{{sunat.data?.no_ruc}}</td>
+                                                <td>{{sunat.data?.tipo_cont}}</td>
+                                                <td>{{sunat.data?.nombre_comercial}}</td>
+                                                <td>{{sunat.data?.fecha_inscripcion}}</td>
+                                                <td>{{sunat.data?.fecha_inicio_actividades}}</td>
+                                                <td>{{sunat.data?.estado}}</td>
+                                                <td>{{sunat.data?.condicion}}</td>
+                                                <td>{{sunat.data?.domicilio}}</td>
+                                                <td>{{sunat.data?.sistema_emicion}}</td>
+                                                <td>{{sunat.data?.actividad_comercio_exterior}}</td>
+                                                <td>{{sunat.data?.sistema_contabilidad}}</td>
+                                                <td>{{sunat.data?.actividades_economicas}}</td>
+                                                <td>{{sunat.data?.comprobante_pago}}</td>
+                                                <td>{{sunat.data?.sistema_emision_electronica}}</td>
+                                                <td>{{sunat.data?.emision_electronica_desde}}</td>
+                                                <td>{{sunat.data?.comprobantes_electronicos}}</td>
+                                                <td>{{sunat.data?.afiliado_ple}}</td>
+                                                <td>{{sunat.data?.padrones}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                            <nb-accordion-item  *ngIf="hasSunatError">
+                                <nb-accordion-item-header
+                                    style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Sunat
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="text-align: center;">Error</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td scope="row" style="text-align: center;">{{sunatError}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                            <nb-accordion-item *ngIf="hasPolice">
+                                <nb-accordion-item-header
+                                        style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Resultado Policia
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div> {{policeData}}</div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                            <nb-accordion-item *ngIf="hasBme">
+                                <nb-accordion-item-header
+                                        style="background-color: #767070 !important;color:black; -webkit-text-stroke-width: 0.3px;-webkit-text-stroke-color: #000;">
+                                    Resultado Bme
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <div *ngIf="hasBmeError"> {{bmeErrorMessagge}}</div>
+                                    <div *ngIf="!hasBmeError"> {{bmeText}}</div>
+                                    <ng2-smart-table class="example-smart-table" [settings]="bmeSettings"
+                                                     [source]="bmeList">
+                                    </ng2-smart-table>
+                                    <div *ngIf="!hasBmeError"> {{bmeNonComplianceText}}</div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+
+                        </nb-accordion>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-12">
+        <button nbButton fullWidth  size="large" status="primary" (click)="downloadPdf()"  class="ml-2">Descargar reporte</button>
+    </div>
+</div>

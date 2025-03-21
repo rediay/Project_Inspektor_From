@@ -1,0 +1,48 @@
+<div class="col-sm">
+    <nb-card>
+        <nb-card-header>Cargar Listas Propias + {{id}}</nb-card-header>
+        <nb-card-body>
+            <button nbButton fullWidth="" status="success">
+                <a style="text-decoration: none; color: white" href="assets\excel\PlantillaListaPropia.xlsx"
+                   target="_blank" download="PlantillaListaPropia.xlsx">
+                    <nb-icon icon="file-text-outline"></nb-icon>
+                    Plantilla de Cargue
+                </a>
+            </button>
+            <p></p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <nb-file-uploader [options]="options"
+                                          (selectFile)="onFileSelected($event)"
+                                          buttonLabel="Browse"
+                                          dropAreaLabel="Drag files here or"
+                                          dropAreaFileChooserLabel="browse to upload">
+                        </nb-file-uploader>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <nb-select placeholder="Tipo Lista Propia" fullWidth (selectedChange)="onOwnListsTypeChange($event)">
+                                <nb-option *ngFor="let m of ownListTypes" value="{{m.id}}">{{m.name}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit"
+                    hero
+                    status="primary"
+                    class="mr-2"
+                    nbButton (click)="onSave()"
+                    [disabled]="importButtonDisabled">Guardar</button>
+            <button type="submit"
+                    hero
+                    status="danger"
+                    nbButton
+                    (click)="onDeleteImportedOwnListsByType()"
+                    [disabled]="deleteButtonDisabled">Borrar</button>
+        </nb-card-body>
+    </nb-card>
+</div>

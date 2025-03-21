@@ -1,0 +1,24 @@
+<div class="lists row justify-content-center">
+    <div class="col-8">
+        <nb-card class="list-card">
+            <nb-card-header>Ayuda y Manuales de Usuario</nb-card-header>
+            <nb-card-body>
+                <nb-list>
+                    <nb-list-item *ngFor="let row of data">
+
+                            <nb-icon [icon]="row.icon" pack="ion" class="mr-2"></nb-icon>
+                        <a target="_blank" href="{{row.url}}" >{{ row.name }}
+                        </a>
+                    </nb-list-item>
+                </nb-list>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+
+<!--<ng-template #dialog let-data let-ref="dialogRef">-->
+<!--    <div class="model-full">-->
+<!--        <iframe width="100%" height="100%" src="https://inspektor.datalaft.com:448/ManualUsuario.pdf"></iframe>-->
+<!--    </div>-->
+<!--</ng-template>-->

@@ -1,0 +1,193 @@
+<nb-card>
+    <nb-card-header>Consultar Reporte</nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="idQueryCompany" class="label">Numero consulta:</label>
+                        <input id="idQueryCompany"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="idQueryCompany"
+                               placeholder="Ingrese un número de consulta"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="identification" class="label">Identificación:</label>
+                        <input id="identification"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="identification"
+                               placeholder="Ingrese un número de consulta"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name" class="label">Nombre Completo:</label>
+                        <input id="name"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="name"
+                               placeholder="Ingrese un número de consulta"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="user" class="label">(Nombre ó nombre de usuario) que consultó:</label>
+                        <input id="user"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="user"
+                               placeholder="Ingrese un número de consulta"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="startDate" class="label">Fecha consulta desde:</label>
+                        <input id="startDate"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="startDate"
+                               placeholder="Fecha consulta desde"
+                               [nbDatepicker]="formpicker"/>
+                        <nb-datepicker #formpicker></nb-datepicker>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="endDate" class="label">Fecha consulta hasta:</label>
+                        <input id="endDate"
+                               nbInput
+                               fullWidth
+                               type="text"
+                               class="form-control"
+                               formControlName="endDate"
+                               placeholder="Fecha consulta hasta"
+                               [nbDatepicker]="formpicker2"/>
+                        <nb-datepicker #formpicker2></nb-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="queryTypeId" class="label">Tipo de consulta</label>
+                        <nb-select
+                                id="queryTypeId"
+                                placeholder="Tipo de consulta"
+                                formControlName="queryTypeId"
+                                fullWidth>
+                            <nb-option [value]="1">Individual</nb-option>
+                            <nb-option [value]="2">Masiva</nb-option>
+                            <nb-option [value]="3">Web Service</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            <button
+                    (click)="search()"
+                    class="align-self-center"
+                    status="primary"
+                    nbButton
+                    nbSuffix>
+                Consultar
+            </button>
+            <button class="ml-4"
+                    nbButton
+                    (click)="cleanForm()"
+                    hero>
+                Limpiar
+            </button>
+        </div>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>REPORTE DE LA CONSULTA</nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <nb-select
+                            (selectedChange)="onChangePerPage($event)"
+                            id="perPage"
+                            placeholder="Mostrar"
+                            fullWidth>
+                        <nb-option [value]="10">10</nb-option>
+                        <nb-option [value]="25">25</nb-option>
+                        <nb-option [value]="50">50</nb-option>
+                        <nb-option [value]="100">100</nb-option>
+                        <nb-option value="all">Todo</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <button class="align-self-center"
+                            (click)="exportAsXLSX()"
+                            status="primary"
+                            nbButton
+                            hero>
+                        Exportar
+                    </button>
+                    <button class="align-self-center ml-3"
+                            (click)="exportDetailAsXLSX()"
+                            status="primary"
+                            nbButton
+                            hero>
+                        Exportar detalle
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ng2-smart-table class="example-smart-table"
+                         (edit)="onQueryDetail($event)"
+                         (delete)="onDownLoadPdf($event)"
+                         [settings]="settings"
+                         [source]="dataSource1">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>DETALLE DE LA CONSULTA ID {{queryDetailId}}</nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table class="example-smart-table"
+                         (edit)="onDetail($event)"
+                         [settings]="settings2"
+                         [source]="dataSource2">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>LISTAS PROPIAS</nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table class="example-smart-table"
+                         (edit)="onDetail($event)"
+                         [settings]="settings3"
+                         [source]="dataSource3">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

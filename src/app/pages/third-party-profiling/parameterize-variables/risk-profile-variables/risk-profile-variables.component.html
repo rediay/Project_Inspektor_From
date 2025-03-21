@@ -1,0 +1,29 @@
+<nb-card>
+    <nb-card-header>
+        Variables de perfiles de riesgo
+    </nb-card-header>
+
+    <nb-card-body>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <nb-form-field>
+                    <input [(ngModel)]="search"
+                           (keyup)="searchRiskProfileVariables($event)"
+                           nbInput>
+                    <button ghost nbButton nbSuffix>
+                        <nb-icon [icon]="'search-outline'"
+                                 pack="eva">
+                        </nb-icon>
+                    </button>
+                </nb-form-field>
+            </div>
+        </div>
+
+        <ng2-smart-table class="example-smart-table"
+                         (edit)="onEdit($event)"
+                         [settings]="settings"
+                         [source]="source">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

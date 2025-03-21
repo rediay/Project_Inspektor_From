@@ -1,0 +1,21 @@
+<nb-card>
+  <nb-card-header>
+    {{"ManageModule.Administracion_del_Acceso_de_Procuraduria_en_linea"| translate }}
+  </nb-card-header>
+  <nb-accordion>
+      <nb-accordion-item>
+          <nb-accordion-item-header>Roles</nb-accordion-item-header>
+          <nb-accordion-item-body>
+              <nb-card-body>
+                  <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="data">
+                  </ng2-smart-table>
+              </nb-card-body>
+          </nb-accordion-item-body>
+      </nb-accordion-item>
+  </nb-accordion>
+
+  <nb-card-body>
+      <ng2-smart-table class="example-smart-table" [settings]="settingsUsers" [source]="dataUsers">
+      </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

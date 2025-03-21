@@ -1,0 +1,49 @@
+<nb-card>
+    <nb-card-header>
+        <nav class="navigation">
+            <a href="#" (click)="back($event)" class="link back-link" aria-label="Back">
+                <nb-icon icon="arrow-back"></nb-icon>
+            </a>
+            Categorías de variables
+        </nav>
+    </nb-card-header>
+
+    <nb-card-body>
+
+        <form>
+            <div class="form-group">
+                <label for="personType" class="label">Tipo Persona</label>
+                <nb-select
+                        id="personType"
+                        (selectedChange)="onPersonTypeChange($event)"
+                        selected=""
+                        fullWidth>
+                    <nb-option value="">Seleccione...</nb-option>
+                    <nb-option value="1">Natural</nb-option>
+                    <nb-option value="2">Jurídica</nb-option>
+                </nb-select>
+            </div>
+        </form>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <nb-form-field>
+                    <input [(ngModel)]="search"
+                           (keyup)="searchCategoryVariables($event)"
+                           nbInput>
+                    <button ghost nbButton nbSuffix>
+                        <nb-icon [icon]="'search-outline'"
+                                 pack="eva">
+                        </nb-icon>
+                    </button>
+                </nb-form-field>
+            </div>
+        </div>
+
+        <ng2-smart-table class="example-smart-table"
+                         (edit)="onEdit($event)"
+                         [settings]="settings"
+                         [source]="source">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

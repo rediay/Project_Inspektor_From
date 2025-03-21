@@ -1,0 +1,3 @@
+<nb-select  placeholder="{{text}}"  fullWidth (selectedChange)="selectiontype($event)">
+  <nb-option  *ngFor="let m of typeslist" value="{{m.name}}">{{m.name}}</nb-option>
+</nb-select>

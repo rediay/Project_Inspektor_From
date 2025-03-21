@@ -1,0 +1,61 @@
+<nb-card class="own-scroll">
+    <nb-card-header>BUSQUEDA SEÑALES DE ALERTA</nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="title" class="form-control" placeholder="Titulo" />
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input id="rangeDate" nbInput fullWidth placeholder="Fecha desde - Fecha hasta" formControlName="rangeDate" [nbDatepicker]="rangepicker">
+                        <nb-rangepicker #rangepicker></nb-rangepicker>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <nb-select id="categoryId" placeholder="Categoría" formControlName="categoryId" fullWidth>
+                            <nb-option *ngFor="let item of newFilters?.contentCategories" [value]="item.id">{{item.name}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <nb-select id="countryId" placeholder="País" formControlName="countryId" *ngIf="newFilters != null" fullWidth>
+                            <nb-option *ngFor="let item2 of newFilters?.countries" [value]="item2.id">{{item2.name}}</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            <button (click)="search()" class="align-self-center" status="primary" nbButton nbSuffix>
+                BUSCAR
+            </button>
+            <button class="ml-4" nbButton hero>
+                CANCELAR
+            </button>
+        </div>
+
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        Señales de alerta
+    </nb-card-header>
+
+    <nb-card-body>
+        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="data">
+        </ng2-smart-table>
+    </nb-card-body>
+
+
+</nb-card>

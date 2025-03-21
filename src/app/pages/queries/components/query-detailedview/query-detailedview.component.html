@@ -1,0 +1,42 @@
+<div class="custom-modal-container">  
+    <button nbButton size="tiny" (click)="closeModal()">X</button>  
+    <h3 class="detalle-titulo">Detalle del registro</h3>
+    <div class="cards-container">  
+        <nb-card class="left-card"  #cardElement>
+            <nb-card-body>
+                <!-- Mostrar la imagen desde la URL -->
+                <img [src]="detaileInfo.urlImage" alt="Imagen" (click)="toggleImageSize()">
+            </nb-card-body>
+        </nb-card> 
+
+        <nb-card class="right-card">
+            <!-- <nb-card-header>Detalle del registro</nb-card-header> -->
+            <nb-card-body>
+                <p><strong>Fecha registro:</strong> {{ detaileInfo.createdAt | date }}</p>
+                <p><strong>Fecha actualización:</strong> {{ detaileInfo.updatedAt | date }}</p>
+                <p><strong>Tipo de documento:</strong> {{ detaileInfo.nameTypeDocument }}</p>
+                <p><strong>Documento:</strong> {{ detaileInfo.document }}</p>
+                <p><strong>Nombre completo:</strong> {{ detaileInfo.name }}</p>
+                <p><strong>Lista:</strong> {{ detaileInfo.nameListType }}</p>
+                <p><strong>Luente consulta:</strong> {{ detaileInfo.source }}</p>
+                <p><strong>Tipo persona:</strong> {{ detaileInfo.kindPerson }}</p>
+                <p><strong>Alias:</strong> {{ detaileInfo.alias }}</p>
+                <p><strong>Delito:</strong> {{ detaileInfo.crime }}</p>
+                <p><strong>Peps:</strong> {{ detaileInfo.peps }}</p>
+                <p><strong>Zona:</strong> {{ detaileInfo.zone }}</p>
+                <p><strong>Link:</strong> <a href="{{ detaileInfo.link }}" target="_blank">  {{ detaileInfo.link }}</a></p>
+                <p><strong>Otra información:</strong> {{ detaileInfo.moreInformation }}</p>
+                <p><strong>Estado:</strong> {{ detaileInfo.status }}</p>
+                <ng-container *ngIf="detaileInfo.peps !== ''">  
+                    <p><strong>Periodo desde:</strong> {{ detaileInfo.startDate | date }}</p>
+                    <p><strong>Periodo hasta:</strong> {{ detaileInfo.endDate | date }}</p>
+                    <p><strong>Entidad/empresa:</strong> {{ detaileInfo.entity }}</p>
+                    <p><strong>Justificación cambio:</strong> {{ detaileInfo.summary }}</p>
+                </ng-container>                
+            </nb-card-body>
+            <!-- <nb-card-footer>
+                <button nbButton status="primary" (click)="closeModal()">Cerrar</button>
+            </nb-card-footer> -->
+        </nb-card>
+    </div>    
+</div>

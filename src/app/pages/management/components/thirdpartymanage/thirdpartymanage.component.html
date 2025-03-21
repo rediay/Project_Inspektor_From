@@ -1,0 +1,19 @@
+<nb-card>
+  <nb-card-header>
+    {{"ManageModule.Administración_Tipo_Tercero"| translate }}
+    
+  </nb-card-header>
+
+  <nb-card-body>
+      <ng2-smart-table #table class="example-smart-table" 
+      [settings]="settings" 
+      [source]="data"
+      (deleteConfirm)="onDeleteConfirm($event)"
+      (editConfirm)="onSaveConfirm($event)"
+      (createConfirm)="onCreateConfirm($event)"
+      (rowSelect)="onRowSelect($event)"
+      
+      >
+      </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

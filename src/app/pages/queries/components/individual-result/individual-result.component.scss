@@ -1,0 +1,39 @@
+#chart {
+    max-width: 650px;
+    margin: 35px auto;
+}
+.report-tittle{
+background-color: #071448;
+border-style: solid;
+border-color: rgb(120, 119, 119);
+border-width: thin;
+    p{
+        color: white;
+        font-size: 20px;
+    }
+}
+
+.report-subtittle{
+    background-color: #ffffff95;
+    border-style: solid;
+    border-color: black;
+    border-width: thin;
+    border-color: rgb(120, 119, 119);
+        p{
+            color: rgb(40, 40, 40);
+            font-size: 14px;
+        }
+}
+
+
+.report-text{
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: black;
+    border-color: rgb(120, 119, 119);
+    border-width: thin;
+        p{
+            color: rgb(40, 40, 40);
+            font-size: 14px;
+        }
+}

@@ -1,0 +1,35 @@
+<nb-card accent="info">
+    <nb-card-header> {{"SettingModule.logo"| translate }}</nb-card-header>
+    <nb-card-body>
+        <div class="center">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                           (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <div class="row">
+                        <div class="col">Deslice la imagen a subir ...</div>
+                        <div class="col pt-2 align-self-center">
+                            <button nbButton outline status="primary" (click)="openFileSelector()" outline>
+                                Cargar Imagen
+                            </button>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </ngx-file-drop>
+            <section>
+                <div class="d-flex justify-content-center p-3" *ngIf="imageSrc">
+                    <img [(src)]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px" class="pb-2">
+                    <br>
+                </div>
+                <div class="d-flex justify-content-center" *ngIf="imageSrc">
+                    <button nbButton [status]="success" class="status-success align-self-center" (click)="UploadFile()"
+                            outline>
+                        Guardar
+                    </button>
+                    <button nbButton outline status="danger" class="m-2" (click)="DeleteFile()">Eliminar</button>
+                </div>
+            </section>
+
+        </div>
+    </nb-card-body>
+</nb-card>

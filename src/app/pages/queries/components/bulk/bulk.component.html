@@ -1,0 +1,223 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="font-row">Descargue la plantilla para hacer la consulta dando clic en el siguiente boton
+            <button nbButton status="success" shape="round" size="small">
+                <a href="assets\excel\PlantillaConsultaMasiva.xlsx" class="btnNavega" target="_blank"
+                   download="PlantillaConsultaMasiva.xlsx">Descargar
+                    <nb-icon icon="file-text-outline"></nb-icon>
+                </a>
+            </button>
+        </div>
+        <p></p>
+    </div>
+
+    <div class="col-lg-8">
+        <nb-card>
+            <nb-card-header class="text-center">CONSULTA MASIVA
+            </nb-card-header>
+            <nb-card-body>
+                <p></p>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <ngx-file-drop accept=".xlsx" [multiple]="false" dropZoneLabel="Drop files here"
+                                           (onFileDrop)="dropped($event)"
+                                           (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <span>Arrastre el archivo aqu&iacute; o&nbsp;</span> <a class="btnNavega"
+                                                                                                    (click)="openFileSelector()">SELECCIONE</a>&nbsp;
+                                            <span> para cargarlo.</span>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ngx-file-drop>
+                            <div class="upload-table">
+                                <table class="table">
+                                    <tbody class="upload-name-style">
+                                    <tr *ngFor="let item of files; let i=index">
+                                        <td><strong>{{ item.relativePath }}</strong></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="font-row">
+                    <div class="header">
+                        <div class="name bold">HABILITAR OTROS SERVICIOS</div>
+                    </div>
+                    <hr size="2px" color="black"/>
+                </div>
+                <div class="row">
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <nb-toggle status="basic" labelPosition="start" (change)="setPrioridad4Status($event)"
+                                       fullwidth>Consulta por prioridad 4
+                            </nb-toggle>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <nb-select placeholder="Palabras adicionales" *ngIf="hasP4" fullWidth
+                                       (selectedChange)="setPalabrasP4($event)">
+                                <nb-option value="1">1</nb-option>
+                                <nb-option value="2">2</nb-option>
+                                <nb-option value="3">3</nb-option>
+                                <nb-option value="4">4</nb-option>
+                                <nb-option value="5">5</nb-option>
+                                <nb-option value="6">6</nb-option>
+                                <nb-option value="7">7</nb-option>
+                                <nb-option value="8">8</nb-option>
+                                <nb-option value="9">9</nb-option>
+                            </nb-select>
+
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" hero status="primary" [nbSpinner]="loadingQuery"
+                        [disabled]="!hasFile || loadingQuery" (click)="BulkQuery()" fullWidth nbButton>VALIDAR
+                </button>
+            </nb-card-body>
+        </nb-card>
+
+
+        
+        <div #divResult tabindex="0" class="col-12 mt-5 justify-content-center">
+            <!-- <nb-card>
+                <nb-card-header>Consulta de servicios adicionales</nb-card-header>
+                <nb-card-body>
+                    <button nbButton status="primary" [routerLink]="['/pages/queries/bulk/bulk-additionalservices']" size="large" fullWidth hero  type="submit">
+                        Consultar servicios adicionales
+                    </button>
+                </nb-card-body>
+            </nb-card> -->
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12 col-sm-12">
+        <nb-card>
+            <nb-card-header>Tipos de listas</nb-card-header>
+            <nb-card-body>
+                <table class="table">
+                    <tbody>
+                    <tr bgcolor="#990000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Relaciona a las personas (naturales o jurídicas) o bienes con reporte en Listas Restrictivas, vinculantes o no. Por ejemplo, Lista OFAC (clinton) o listas del Consejo de Seguridad de Naciones Unidas (ONU). Se recomienda no tener vínculos con estos terceros.">Listas Restrictivas</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FF0000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con actividades delictivas bien sea Lavado de Activos (y sus delitos fuente), Financiación del Terrorismo, Corrupción u otros delitos. Así mismo información asociada a etapas de los procesos penales (capturas, decomisos, comiso, etc) y temas referidos a Extinción o Pérdida de Dominio. ">Listas Asociadas a LA/FT, Corrupción u otros delitos (Penal)</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FF9900">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con actividades administrativas asociadas a Lavado de Activos (y sus delitos fuente), Financiación del Terrorismo, Corrupción u otras conductas administrativas relevantes.">Listas Asociadas a LA/FT, Corrupción u otros similares (Administrativo)</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FFFF00">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:#FF9900;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con otras actividades administrativas (p.e. multas, inhabilidades, etc) así como información financiera (p.e. concordatos, liquidación, etc) no directamente asociadas a LA/FT o Corrupción pero relevantes para la gestión de riesgos.">Sanciones Administrativas y Listas de Afectación Financiera</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#008000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Contiene datos asociados a personas (naturales o jurídicas) o bienes con carácter informativo (p.e. registros autorizados, sectores, cargos, personas expuestas política o públicamente, entidades sin ánimo de lucro, etc).">Listas PEPS</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#bce8c1">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:Black;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Contiene datos asociados a personas (naturales o jurídicas) o bienes en general que son de carácter informativo (p.e. registros autorizados, sectores, cargos, entidades sin ánimo de lucro, etc). En general es información que sirve para orientar la toma de decisiones pero no tiene connotación positiva/negativa.">Listas Informativas</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#284775">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Contiene datos asociados a personas (naturales o jurídicas) o bienes que se administran y categorizan por nuestros clientes generando los procedimientos o respuestas que se definan internamente.">Listas Propias</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-header>Prioridades</nb-card-header>
+            <nb-card-body>
+                <table class="table">
+                    <tbody>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: coral;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Coincidencias en el número de identificación exacto y nombre que contenga la búsqueda">Prioridad 1</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff">
+                        <td align="center" style="border-left: 3px solid; border-left-color: darkorange;">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Coincidencias únicamente en el número de identificación exacto">Prioridad 2</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: yellow;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Coincidencias exactas únicamente en el nombre">Prioridad 3</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: yellow;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                  style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                  title="Coincidencias únicamente en el nombre, con una determinada cantidad de palabras de precisión">Prioridad 4</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div #divResult *ngIf="queryFinished">
+        <nb-card>
+            <nb-card-header>
+                <h2>Resultados de la consulta no. {{queryCompanyId}}</h2> 
+            </nb-card-header>
+            <nb-card-body>
+                <button (click)="exportExcel()" class="align-self-center" status="success" nbButton nbSuffix>
+                    <nb-icon icon="file-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
+                    Descargar Excel
+                </button>
+                <button (click)="exportPdf()" class="align-self-center ml-3" status="danger" nbButton nbSuffix>
+                    <nb-icon icon="file-text-outline" [options]="{ animation: { type: 'zoom' } }"></nb-icon>
+                    Descargar PDF
+                </button>
+            </nb-card-body>
+
+            <nb-card-body>
+                <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source">
+                </ng2-smart-table>
+            </nb-card-body>
+
+
+        </nb-card>
+    </div>
+</div>

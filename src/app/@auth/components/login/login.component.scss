@@ -1,0 +1,35 @@
+/*!
+ * Copyright (c) Akveo 2019. All Rights Reserved.
+ * Licensed under the Single Application / Multi Application License.
+ * See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+ */
+:host {
+  .title {
+    color:#3c5a99;
+  }
+  .background-orange {
+    background-color: #F5803E;
+    background-image:url(../../../../assets/images/illustrations/half-circle.png);
+    background-position: 0px 133%;
+  }
+  .img-illustration-login {
+    max-height: 120px;
+    width: auto;
+  }
+  .bg-holder {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    will-change: transform,opacity,filter;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+}

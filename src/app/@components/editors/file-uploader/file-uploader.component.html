@@ -1,0 +1,17 @@
+<div class="file-uploader">
+    <ng-container>
+        <input #inputEl type="file" style="display: none;" [accept]="accept" [multiple]="options.multiple" (change)="onChange()">
+    </ng-container>
+
+    <ng-container *ngIf="options.directory">
+        <input #inputEl type="file" style="display: none;" [accept]="accept" [multiple]="options.multiple" webkitdirectory (change)="onChange()">
+    </ng-container>
+
+
+    <button nbButton outline status="success" (click)="browse()">        
+        <nb-icon icon="upload-outline"></nb-icon>
+        Seleccionar archivo
+    </button>
+</div>
+
+<nb-upload-queue *ngIf="(uploader.uploadQueue$ | async).length && options.showUploadQueue" [items]="uploader.uploadQueue$ | async"></nb-upload-queue>

@@ -1,0 +1,14 @@
+<nb-card>
+    <nb-card-header>
+        Configuración tipos de lista por consulta
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="data" (userRowSelect)="onUserRowSelect($event)"></ng2-smart-table>
+    </nb-card-body>
+    <p></p>
+    <button nbButton hero status="primary">
+      <nb-icon icon="file-text-outline">        
+      </nb-icon>
+      Generar Reporte
+    </button>
+</nb-card>

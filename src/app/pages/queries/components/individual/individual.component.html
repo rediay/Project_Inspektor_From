@@ -1,0 +1,315 @@
+<div class="row">
+    <div class="col-lg-8">
+        
+                <nb-card>
+                    <nb-card-header>Consulta Individual</nb-card-header>
+                    <nb-card-body>
+                        
+                        <form [formGroup]="form" (submit)="onSubmit(dialog)">
+                            <div class="row">
+                                <div class="col-6 border-right">
+                                    <div class="form-group">
+                                        <label for="document" class="label">Documento de Identificación</label>
+                                        <input type="text" fieldSize="small" id="document" nbInput fullWidth formControlName="document"
+                                            placeholder="Documento de Identificación" (ngModelChange)="documentOrNameChange()">
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="TypesDocument" class="label">Tipo Identificación</label>
+                                        <nb-select selected="1" id="TypesDocument" fullWidth formControlName="typeDocument">
+                                            <nb-option *ngFor="let typeDocument of  TypesDocuments"
+                                                    value="{{typeDocument.id}}">{{typeDocument.name}}</nb-option>
+                                        </nb-select>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <button nbButton status="primary" size="small" type='button' [nbSpinner]="loadingCheckName" [disabled]="loadingCheckName" hero [hidden]="!showButtonSearchName" (click)="checkName()">
+                                            Conozca el nombre o razón social
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name" class="label">Nombre</label>
+                                        <input type="text" id="name" fieldSize="small" formControlName="name" nbInput fullWidth placeholder="Nombre" (ngModelChange)="documentOrNameChange()">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="thirdTypeId" class="label">Tipo de Tercero</label>
+                                        <nb-select selected="1" id="thirdType" fullWidth formControlName="thirdTypeId">
+                                            <nb-option *ngFor="let thirdType of  thirdTypes"
+                                                    value="{{thirdType.id}}">{{thirdType.name}}</nb-option>
+                                        </nb-select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="label">Prioridad 4</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <nb-checkbox formControlName="hasPriority4" (change)="updateState(numberWordsType)">Habilitar Prioridad 4</nb-checkbox>
+                                    </div>
+                                    <div class="form-group" *ngIf="showNumberWords">
+                                        <label for="name" class="label">Palabras de precisión</label>
+                                        <input type="number" min="1" max="9"  fieldSize="small" formControlName="numberWords" nbInput placeholder="Qty">
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="label">Habilitar servicios adicionales</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group" *ngIf="activeTitleMainServices">
+                                                <label class="label">Servicios principales</label>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceProcuraduria">
+                                                <nb-checkbox formControlName="hasProcuraduria" (change)="updateState(procuraduriaType)">
+                                                    Procuraduría
+                                                </nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="showProcuraduriaTypeDocument">
+                                                <label for="ProcuraduriaTypesDocument" class="label">Tipo Identificación Procuraduria</label>
+                                                <nb-select selected="1" id="ProcuraduriaTypesDocument" fullWidth formControlName="typeDocumentProcuraduria" (selectedChange)="ProcuraduriaTypeChange($event)">
+                                                    <nb-option *ngFor="let typeDocument of  ProcuraduriaTypesDocuments"
+                                                            value="{{typeDocument.id}}">{{typeDocument.name}}</nb-option>
+                                                </nb-select>
+                                            </div>
+                                            
+                                            <div class="form-group" *ngIf="showNitInputProcuraduria">
+                                                <label for="name" class="label">Digito de verificación</label>
+                                                <input type="number" min="1"  fieldSize="small" formControlName="digitVerification" nbInput placeholder="">
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceRamaJudicial">
+                                                <nb-checkbox formControlName="hasRamaJudicial">Rama Judicial</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceRamaJudicialJEMPS">
+                                                <nb-checkbox formControlName="hasRamaJudicialJEMPS">Rama Judicial JEPMS</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceRegistryDeaths">
+                                                <nb-checkbox formControlName="hasRegistryDeaths">Defunciones registraduria</nb-checkbox>
+                                            </div>
+
+                                            <div class="form-group" *ngIf="activeTitleColombiaServices">
+                                                <label class="label">Servicios Colombia</label>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceMilitary">
+                                                <nb-checkbox formControlName="hasMilitary"> Ejército</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceRues">
+                                                <nb-checkbox formControlName="hasRues">Rues</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceSuperSocieties">
+                                                <nb-checkbox formControlName="hasSuperSocieties">SuperSociedades</nb-checkbox>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group" *ngIf="checkActiveServiceSimit">
+                                                <nb-checkbox formControlName="hasSimit">Simit</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceEstadoEPS">
+                                                <nb-checkbox formControlName="hasEstadoEPS">Estado EPS</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServicePolice">
+                                                <nb-checkbox formControlName="hasPolice" (change)="PoliceTypeChange()">Policia</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="showPoliceTypeDocument">
+                                                <div>
+                                                    <label for="policeTypesDocument" class="label">Tipo Identificación Policia</label>
+                                                </div>
+                                                <div>
+                                                    <nb-select id="policeTypesDocument" fullWidth formControlName="typeDocumentPolice">
+                                                        <nb-option *ngFor="let typeDocument of  policeTypeDocuments"
+                                                                   value="{{typeDocument.id}}">{{typeDocument.name}}</nb-option>
+                                                    </nb-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceBme">
+                                                <nb-checkbox formControlName="hasBme" (change)="bmeTypeChange()">Bme</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="showBmeTypeDocument">
+                                                <div>
+                                                    <label for="bmeTypesDocument" class="label">Tipo Identificación Bme</label>
+                                                </div>
+                                                <div>
+                                                    <nb-select id="bmeTypesDocument" fullWidth formControlName="typeDocumentBme">
+                                                        <nb-option *ngFor="let typeDocument of  bmeTypeDocuments"
+                                                                   value="{{typeDocument.id}}">{{typeDocument.name}}</nb-option>
+                                                    </nb-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" *ngIf="activeTitleVenezuelaServices">
+                                                <label class="label">Servicios de Venezuela</label>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceEstadoPermiso">
+                                                <nb-checkbox formControlName="hasEstadoPermiso" (change)="PptTypeChange()">
+                                                    Estado Permiso
+                                                </nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="showPptTypeDocument">
+                                                <div>
+                                                    <label for="PptDocuments" class="label">Tipo Identificación PPT</label>
+                                                </div>
+                                                <div>
+                                                    <nb-select selected="0" id="PptTypesDocument" fullWidth formControlName="typeDocumentPpt">
+                                                        <nb-option *ngFor="let typeDocument of  PptDocuments"
+                                                                value="{{typeDocument.id}}">{{typeDocument.name}}</nb-option>
+                                                    </nb-select>
+                                                </div>   
+                                            </div>
+
+                                            <div class="form-group" *ngIf="activeTitleecuadorServices">
+                                                <label class="label">Servicios de Ecuador</label>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceAntecedentesCriminales">
+                                                <nb-checkbox formControlName="hasAntecedentesCriminales">Ant. criminales</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceInformacionJudicial">
+                                                <nb-checkbox formControlName="hasInformacionJudicial">Información judicial</nb-checkbox>
+                                            </div>
+
+                                            <div class="form-group" *ngIf="activeTitlePeruServices">
+                                                <label class="label">Servicios de Perú</label>
+                                            </div>
+                                            <div class="form-group" *ngIf="checkActiveServiceSunat">
+                                                <nb-checkbox formControlName="hasSunat" (change)="SunatTypeChange()">Sunat</nb-checkbox>
+                                            </div>
+                                            <div class="form-group" *ngIf="showSunatTypeDocument">
+                                                <div>
+                                                    <label for="document" class="label">Ingrese RUC</label>
+                                                </div>
+                                                <div>
+                                                    <input type="text" fieldSize="small" id="ruc" nbInput fullWidth formControlName="ruc"
+                                                    placeholder="Ingrese RUC">
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    
+                                </div>
+                                <div class="form-group col-12 mt-3">
+                                    <nb-checkbox [checked]="makePreviusQuery" (checkedChange)="makePreviusQueryChange($event)">¿Desea realizar una revisión de cunsulta previa en el último año?</nb-checkbox>
+                                    <button nbButton status="primary" size="large" fullWidth hero  type="submit"  [nbSpinner]="loadingQuery" [disabled]="!form.valid || loadingQuery">
+                                        Realizar consulta
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </nb-card-body>
+                </nb-card>
+            
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12">
+        <nb-card>
+            <nb-card-header>Tipos de listas</nb-card-header>
+            <nb-card-body>
+                <table class="table">
+                    <tbody>
+                    <tr bgcolor="#990000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Relaciona a las personas (naturales o jurídicas) o bienes con reporte en Listas Restrictivas, vinculantes o no. Por ejemplo, Lista OFAC (clinton) o listas del Consejo de Seguridad de Naciones Unidas (ONU). Se recomienda no tener vínculos con estos terceros.">Listas Restrictivas</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FF0000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con actividades delictivas bien sea Lavado de Activos (y sus delitos fuente), Financiación del Terrorismo, Corrupción u otros delitos. Así mismo información asociada a etapas de los procesos penales (capturas, decomisos, comiso, etc) y temas referidos a Extinción o Pérdida de Dominio. ">Listas Asociadas a LA/FT, Corrupción u otros delitos (Penal)</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FF9900">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con actividades administrativas asociadas a Lavado de Activos (y sus delitos fuente), Financiación del Terrorismo, Corrupción u otras conductas administrativas relevantes.">Listas Asociadas a LA/FT, Corrupción u otros similares (Administrativo)</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FFFF00">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:#FF9900;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Relaciona a las personas (naturales o jurídicas) o bienes que en forma alguna se encuentran relacionados con otras actividades administrativas (p.e. multas, inhabilidades, etc) así como información financiera (p.e. concordatos, liquidación, etc) no directamente asociadas a LA/FT o Corrupción pero relevantes para la gestión de riesgos.">Sanciones Administrativas y Listas de Afectación Financiera</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#008000">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Contiene datos asociados a personas (naturales o jurídicas) o bienes con carácter informativo (p.e. registros autorizados, sectores, cargos, personas expuestas política o públicamente, entidades sin ánimo de lucro, etc).">Listas PEPS</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#bce8c1">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                            style="display:inline-block;color:Black;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;" 
+                            title="Contiene datos asociados a personas (naturales o jurídicas) o bienes en general que son de carácter informativo (p.e. registros autorizados, sectores, cargos, entidades sin ánimo de lucro, etc). En general es información que sirve para orientar la toma de decisiones pero no tiene connotación positiva/negativa.">Listas Informativas</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#284775">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:White;font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Contiene datos asociados a personas (naturales o jurídicas) o bienes que se administran y categorizan por nuestros clientes generando los procedimientos o respuestas que se definan internamente.">Listas Propias</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-header>Prioridades</nb-card-header>
+            <nb-card-body>
+                <table class="table">
+                    <tbody>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: coral;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Coincidencias en el número de identificación exacto y nombre que contenga la búsqueda">Prioridad 1</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff">
+                        <td align="center" style="border-left: 3px solid; border-left-color: darkorange;">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Coincidencias únicamente en el número de identificación exacto">Prioridad 2</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: yellow;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Coincidencias exactas únicamente en el nombre">Prioridad 3</span>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#ffffff" style="border-left: 3px solid; border-left-color: yellow;">
+                        <td align="center">
+                            <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                style="display:inline-block;color:rgb(0, 0, 0);font-family:Calibri;font-size:Small;font-weight:normal;width:200px;"
+                                title="Coincidencias únicamente en el nombre, con una determinada cantidad de palabras de precisión">Prioridad 4</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div #divResult tabindex="0" class="col-12 mt-5 justify-content-center" *ngIf="queryCompanyId!=null">
+        <nb-card>
+            <nb-card-header>Resultado de consulta no. {{queryCompanyId}}</nb-card-header>
+            <nb-card-body>
+                <button nbButton status="primary" [routerLink]="['/pages/queries/individual/result',queryId]" size="large" fullWidth hero  type="submit">
+                    ver reporte
+                </button>
+            </nb-card-body>
+        </nb-card>
+</div>
+
+<ng-template #dialog let-data let-ref="dialogRef" >
+    <nb-card>
+        <nb-card-header>Consulta anterior</nb-card-header>
+        <nb-card-body>Este tercero ya fue consultado el : <b>{{ data.createdAt | date:'medium'}}</b> con el Id de consulta: <b>{{ data.idQueryCompany }}</b> Puede generar una nueva consulta para actualizar su análisis de riesgo. <br>¿Usted qué quiere hacer?</nb-card-body>
+        <nb-card-footer class="text-center">
+        <button nbButton status="danger"  (click)="ref.close()">Cancelar</button>
+        <button nbButton status="success" [routerLink]="['/pages/queries/individual/result',queryId]" class="ml-2" (click)="ref.close()">Ver Reporte</button>
+    </nb-card-footer>
+    </nb-card>
+</ng-template>

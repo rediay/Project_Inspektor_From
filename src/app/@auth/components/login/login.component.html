@@ -1,0 +1,206 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Single Application / Multi Application License.
+  ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+  -->
+
+<!--<h1 id="title" class="title">Login</h1>-->
+<!--<p class="sub-title">Hello! Log in with your email.</p>-->
+
+<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+    <p class="alert-title"><b>¡Oh, vaya!</b></p>
+    <ul class="alert-message-list">
+        <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    </ul>
+</nb-alert>
+
+<nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+    <p class="alert-title"><b>¡Bien!</b></p>
+    <ul class="alert-message-list">
+        <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    </ul>
+</nb-alert>
+<div class="row h-100">
+    <div class="col-md-6 col-6 col-sm-12 text-center background-orange ">
+
+        <div class="position-relative p-4 pt-md-5 pb-md-7 light">
+            <!--            <div class="bg-holder bg-auth-card-shape" style="background-image:url(../../../../assets/images/illustrations/half-circle.png);">-->
+            <!--            </div>-->
+            <!--/.bg-holder-->
+            <img src="../../../../assets/images/illustrations/ficha2.png">
+            <div class="z-index-1 position-relative">
+                <h3 class="text-white">Inspektor 2.0</h3>
+                <p class="opacity-75 text-white">Somos tus aliados estratégicos para tu <b>gestión de riesgos</b>.</p>
+            </div>
+        </div>
+        <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
+            <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Nuestros <a
+                    class="text-decoration-underline text-white" href="#!">terminos</a> y <a
+                    class="text-decoration-underline text-white" href="#!">condiciones </a></p>
+        </div>
+        <!--        <h3 class="title">Inspektor 2.0</h3>-->
+        <!--        <p class="title">Somos tus aliados estratégicos para tu gestión de riesgos.</p>-->
+    </div>
+    <div class="col-md-6 col-6 col-sm-12 text-center">
+        <div class="position-relative p-4 pt-md-5 pb-md-7 light">
+            <h2 id="title" class="title">Login</h2>
+            <img class="img-illustration-login mb-2" src="../../../../assets/images/illustrations/ficha1.png">
+            <div [formGroup]="loginForm" aria-labelledby="title">
+                <div class="form-control-group">
+                    <label for="input-email">Email address:</label>
+                    <input nbInput
+                           fullWidth
+                           id="input-email"
+                           formControlName="email"
+                           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+                           [attr.aria-invalid]="email.invalid && email.touched ? true : null"
+                           placeholder="Email address">
+                    <ngx-validation-message label="Email address"
+                                            [showPattern]="email?.hasError('pattern') && email.touched"
+                                            [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>
+                </div>
+
+                <div class="form-control-group">
+                <span class="label-with-link">
+                  <label class="label" for="input-password">Password:</label>
+                  <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a>
+                </span>
+                    <input nbInput
+                           fullWidth
+                           id="input-password"
+                           formControlName="password"
+                           type="password"
+                           [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+                           placeholder="Password">
+                    <ngx-validation-message label="Password"
+                                            [showMinLength]="password?.hasError('minlength') && password.touched"
+                                            [showMaxLength]="password?.hasError('maxlength') && password.touched"
+                                            [showRequired]="password?.errors?.required && password.touched"
+                                            [minLength]="minLength"
+                                            [maxLength]="maxLength"></ngx-validation-message>
+                </div>
+
+                <!--  <div class="form-control-group accept-group">-->
+                <!--    <nb-checkbox formControlName="rememberMe" name="rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox>-->
+                <!--  </div>-->
+
+                <button nbButton fullWidth status="primary" size="large" class="mt-3"
+                        (click)="login()" [disabled]="submitted || !loginForm.valid"
+                        [class.btn-pulse]="submitted">
+                    Log In
+                </button>
+                <!--      </div>-->
+
+                <!--<section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">-->
+                <!--  or enter with:-->
+                <!--  <div class="socials">-->
+                <!--    <ng-container *ngFor="let socialLink of socialLinks">-->
+                <!--      <a *ngIf="socialLink.link"-->
+                <!--         [routerLink]="socialLink.link"-->
+                <!--         [attr.target]="socialLink.target"-->
+                <!--         [attr.class]="socialLink.icon"-->
+                <!--         [class.with-icon]="socialLink.icon">-->
+                <!--        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>-->
+                <!--        <ng-template #title>{{ socialLink.title }}</ng-template>-->
+                <!--      </a>-->
+                <!--      <a *ngIf="socialLink.url"-->
+                <!--         [attr.href]="socialLink.url"-->
+                <!--         [attr.target]="socialLink.target"-->
+                <!--         [attr.class]="socialLink.icon"-->
+                <!--         [class.with-icon]="socialLink.icon">-->
+                <!--        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>-->
+                <!--        <ng-template #title>{{ socialLink.title }}</ng-template>-->
+                <!--      </a>-->
+                <!--    </ng-container>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<nb-layout class="grid place-items-center">-->
+<!--    &lt;!&ndash;  <nb-layout-header>Login</nb-layout-header>&ndash;&gt;-->
+<!--    <nb-layout-column class="background-orange text-center">-->
+<!--        <img src="../../../../assets/images/illustrations/ficha2.png">-->
+<!--        <h3 class="title">Inspektor 2.0</h3>-->
+<!--        <p class="title">Somos tus aliados estratégicos para tu gestión de riesgos.</p>-->
+<!--    </nb-layout-column>-->
+<!--    <nb-layout-column class="colored-column-danger text-center">-->
+<!--        <h2 id="title" class="title">Login</h2>-->
+<!--        <img class="img-illustration-login mb-2" src="../../../../assets/images/illustrations/ficha1.png">-->
+<!--        <div [formGroup]="loginForm" aria-labelledby="title">-->
+<!--            <div class="form-control-group">-->
+<!--                <label for="input-email">Email address:</label>-->
+<!--                <input nbInput-->
+<!--                       fullWidth-->
+<!--                       id="input-email"-->
+<!--                       formControlName="email"-->
+<!--                       [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"-->
+<!--                       [attr.aria-invalid]="email.invalid && email.touched ? true : null"-->
+<!--                       placeholder="Email address">-->
+<!--                <ngx-validation-message label="Email address"-->
+<!--                                        [showPattern]="email?.hasError('pattern') && email.touched"-->
+<!--                                        [showRequired]="email?.errors?.required && email.touched"></ngx-validation-message>-->
+<!--            </div>-->
+
+<!--            <div class="form-control-group">-->
+<!--                <span class="label-with-link">-->
+<!--                  <label class="label" for="input-password">Password:</label>-->
+<!--                  <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a>-->
+<!--                </span>-->
+<!--                <input nbInput-->
+<!--                       fullWidth-->
+<!--                       id="input-password"-->
+<!--                       formControlName="password"-->
+<!--                       type="password"-->
+<!--                       [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"-->
+<!--                       placeholder="Password">-->
+<!--                <ngx-validation-message label="Password"-->
+<!--                                        [showMinLength]="password?.hasError('minlength') && password.touched"-->
+<!--                                        [showMaxLength]="password?.hasError('maxlength') && password.touched"-->
+<!--                                        [showRequired]="password?.errors?.required && password.touched"-->
+<!--                                        [minLength]="minLength"-->
+<!--                                        [maxLength]="maxLength"></ngx-validation-message>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;  <div class="form-control-group accept-group">&ndash;&gt;-->
+<!--            &lt;!&ndash;    <nb-checkbox formControlName="rememberMe" name="rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox>&ndash;&gt;-->
+<!--            &lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--            <button nbButton fullWidth status="primary" size="large" class="mt-3"-->
+<!--                    (click)="login()" [disabled]="submitted || !loginForm.valid"-->
+<!--                    [class.btn-pulse]="submitted">-->
+<!--                Log In-->
+<!--            </button>-->
+<!--            &lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--            &lt;!&ndash;<section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">&ndash;&gt;-->
+<!--            &lt;!&ndash;  or enter with:&ndash;&gt;-->
+<!--            &lt;!&ndash;  <div class="socials">&ndash;&gt;-->
+<!--            &lt;!&ndash;    <ng-container *ngFor="let socialLink of socialLinks">&ndash;&gt;-->
+<!--            &lt;!&ndash;      <a *ngIf="socialLink.link"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [routerLink]="socialLink.link"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [attr.target]="socialLink.target"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [attr.class]="socialLink.icon"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [class.with-icon]="socialLink.icon">&ndash;&gt;-->
+<!--            &lt;!&ndash;        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>&ndash;&gt;-->
+<!--            &lt;!&ndash;        <ng-template #title>{{ socialLink.title }}</ng-template>&ndash;&gt;-->
+<!--            &lt;!&ndash;      </a>&ndash;&gt;-->
+<!--            &lt;!&ndash;      <a *ngIf="socialLink.url"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [attr.href]="socialLink.url"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [attr.target]="socialLink.target"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [attr.class]="socialLink.icon"&ndash;&gt;-->
+<!--            &lt;!&ndash;         [class.with-icon]="socialLink.icon">&ndash;&gt;-->
+<!--            &lt;!&ndash;        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>&ndash;&gt;-->
+<!--            &lt;!&ndash;        <ng-template #title>{{ socialLink.title }}</ng-template>&ndash;&gt;-->
+<!--            &lt;!&ndash;      </a>&ndash;&gt;-->
+<!--            &lt;!&ndash;    </ng-container>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </nb-layout-column>-->
+<!--</nb-layout>-->
+
+<!--</section>-->
+
+<!--<section class="another-action" aria-label="Register">-->
+<!--  Don't have an account? <a class="text-link" routerLink="../register">Register</a>-->
+<!--</section>-->

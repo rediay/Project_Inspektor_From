@@ -1,0 +1,206 @@
+<nb-card>
+    <nb-card-header>
+        {{"NotificationModule.Configuracion_Notificaciones"| translate }}
+    </nb-card-header>
+
+    <nb-card-body [formGroup]="notificationSettingForm">
+        <div class="row show-grid">
+            <div class="col-4">
+                Acción
+            </div>
+            <div class="col-4">
+                Tipo de notificaión
+            </div>
+            <div class="col-4">
+                Destino
+            </div>
+
+        </div>
+        <div class="row  mt-3">
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailPriority1'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailPriority1">Habilitar
+                </nb-toggle>
+            </div>
+            <div class="col-4  mt-2">
+                Prioridad 1
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailPriority1"
+                    [readonly]="!notificationSettingForm.controls['sendMailPriority1'].value"
+                    formControlName="mailPriority1"
+                    placeholder="Correo Prioridad 1"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailPriority1')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailPriority1'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailPriority1')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailPriority1'].value">
+                    </nb-tag-list>
+            </div>
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailPriority2'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailPriority2">Habilitar
+                </nb-toggle>
+            </div>
+            <div class="col-4  mt-2">
+                Prioridad 2
+            </div>
+            <div class="col-4  mt-2">
+
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailPriority2"
+                    [readonly]="!notificationSettingForm.controls['sendMailPriority2'].value"
+                    formControlName="mailPriority2"
+                    placeholder="Correo Prioridad 2"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailPriority2')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailPriority2'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailPriority2')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailPriority2'].value">
+                    </nb-tag-list>
+            </div>
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailPriority3'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailPriority3">Habilitar
+                </nb-toggle>
+
+
+            </div>
+            <div class="col-4  mt-2">
+                Prioridad 3
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailPriority3"
+                    [readonly]="!notificationSettingForm.controls['sendMailPriority3'].value"
+                    formControlName="mailPriority3"
+                    placeholder="Correo Prioridad 3"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailPriority3')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailPriority3'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailPriority3')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailPriority3'].value">
+                    </nb-tag-list>
+            </div>
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailPriority4'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailPriority4">Habilitar
+                </nb-toggle>
+
+            </div>
+            <div class="col-4  mt-2">
+                Prioridad 4
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailPriority4"
+                    [readonly]="!notificationSettingForm.controls['sendMailPriority4'].value"
+                    formControlName="mailPriority4"
+                    placeholder="Correo Prioridad 4"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailPriority4')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailPriority4'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailPriority4')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailPriority4'].value">
+                    </nb-tag-list>
+            </div>
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary"
+                        [checked]="notificationSettingForm.controls['sendMailAdditionalServices'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailAdditionalServices">Habilitar
+                </nb-toggle>
+
+            </div>
+            <div class="col-4  mt-2">
+                Servicios adicionales
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailAdditionalServices"
+                    [readonly]="!notificationSettingForm.controls['sendMailAdditionalServices'].value"
+                    formControlName="mailAdditionalServices"
+                    placeholder="Correo servicios adicionales"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailAdditionalServices')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailAdditionalServices'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailAdditionalServices')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailAdditionalServices'].value">
+                    </nb-tag-list>
+            </div>
+
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailCoincidences'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailCoincidences">Habilitar
+                </nb-toggle>
+
+            </div>
+            <div class="col-4  mt-2">
+                Notificaciones de monitoreo de tercero
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailCoincidences"
+                    [readonly]="!notificationSettingForm.controls['sendMailCoincidences'].value"
+                    formControlName="mailCoincidences"
+                    placeholder="Correo coincidencias"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailCoincidences')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailCoincidences'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailCoincidences')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailCoincidences'].value">
+                    </nb-tag-list>
+            </div>
+
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailAdministrative'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailAdministrative">Habilitar
+                </nb-toggle>
+
+            </div>
+            <div class="col-4  mt-2">
+                Notificaciones administrativas
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailAdministrative"
+                    [readonly]="!notificationSettingForm.controls['sendMailAdministrative'].value"
+                    formControlName="mailAministrative"
+                    placeholder="Correo coincidencias"> -->
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailAministrative')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailAministrative'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailAministrative')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailAdministrative'].value">
+                    </nb-tag-list>
+            </div>
+
+
+            <div class="col-4  mt-2">
+                <nb-toggle status="primary" [checked]="notificationSettingForm.controls['sendMailRoi'].value" (change)="changeStatus($event)"
+                        formControlName="sendMailRoi">Habilitar
+                </nb-toggle>
+            </div>
+            <div class="col-4  mt-2">
+                Notificaciones ROI/Denuncia
+            </div>
+            <div class="col-4  mt-2">
+                <!-- <input nbInput
+                    fullWidth
+                    id="input-sendMailRoi"
+                    [readonly]="!notificationSettingForm.controls['sendMailRoi'].value"
+                    formControlName="mailRoi"
+                    placeholder="Correo coincidencias"> -->
+
+                    <nb-tag-list  (tagRemove)="onTagRemove($event,'mailRoi')">
+                        <nb-tag *ngFor="let value of notificationSettingForm.controls['mailRoi'].value" [text]="value" removable></nb-tag>
+                        <input type="email" nbTagInput (tagAdd)="onTagAdd($event,'mailRoi')" fullWidth email [readonly]="!notificationSettingForm.controls['sendMailRoi'].value">
+                    </nb-tag-list>
+            </div>
+
+            <div class="col-12  flex mt-3 justify-content-center">
+                <button fullWidth nbButton status="primary" size="large" hero (click)="submitForm()" [disabled]="statusButton">
+                    Guardar
+                </button>
+            </div>
+        </div>
+        <!--    <ng2-smart-table class="example-smart-table"-->
+        <!--                     [settings]="settings"-->
+        <!--                     [source]="source"-->
+        <!--                     (change)="onChangeToggle($event)">-->
+        <!--    </ng2-smart-table>-->
+    </nb-card-body>
+</nb-card>

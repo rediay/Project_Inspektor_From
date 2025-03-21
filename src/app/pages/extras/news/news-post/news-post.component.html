@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) Akveo 2019. All Rights Reserved.
+  ~ Licensed under the Single Application / Multi Application License.
+  ~ See LICENSE_SINGLE_APP / LICENSE_MULTI_APP in the 'docs' folder for license information on type of purchased license.
+  -->
+<!--[style.background-image]="'url(../../assets/images/news.jpg)'"-->
+<article>
+    <div class="row">
+        <div class="col-6">
+            <a class="text-decoration-none" [attr.href]="post.source"><img class="img-thumbnail rounded" src="../../assets/images/news.jpg"></a>
+        </div>
+        <div class="col-6">
+            <h2>{{post.title}}</h2>
+            <!--<a class="text-decoration-none"[attr.href]="post.source"><p style="font-size: 1rem;">Author <em><strong>01/04/2020 9:29 A.M</strong></em></p></a>-->
+            <a class="text-decoration-none"[attr.href]="post.source"><p style="font-size: 1rem;"><em><strong>{{ post.date }}</strong></em></p></a>
+            <p>{{post.description}}</p>
+        </div>
+        <div class="col-12">
+            <a class="text-decoration-none" [attr.href]="post.source">Read full article</a>
+        </div>
+    </div>
+
+</article>

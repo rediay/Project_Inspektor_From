@@ -1,0 +1,13 @@
+<nb-card>
+    <nb-card-header>
+        Configuración tipos de lista por consulta
+    </nb-card-header>
+    <nb-card-body>
+        <nb-toggle status="basic" (change)="setCheckedStatus($event)">¿Desea descargar la plantilla segun el tipo de lista?</nb-toggle>
+        <ngx-load *ngIf="flags" (onSuccess)="getOwnLists()"></ngx-load>
+        <ng2-smart-table #table class="example-smart-table" [settings]="settings" [source]="data" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)" (createConfirm)="onCreateConfirm($event)" (rowSelect)="onRowSelect($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+    <p></p>
+
+</nb-card>

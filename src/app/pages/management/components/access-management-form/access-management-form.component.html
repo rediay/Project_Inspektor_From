@@ -1,0 +1,320 @@
+<div class="col-lg-12" xmlns="http://www.w3.org/1999/html">
+    <nb-card>
+        <!--<nb-card-header>Crear usuario</nb-card-header>-->
+        <nb-card-header>
+            <nav class="navigation">
+                <a href="#" (click)="back($event)" class="link back-link" aria-label="Back">
+                    <nb-icon icon="arrow-back"></nb-icon>
+                </a>
+                {{ "AccessComponent."+headerTitle | translate}}
+            </nav>
+        </nb-card-header>
+        <nb-card-body>
+            <div class="steppers-container row">
+                <div class="col-md-12 col-lg-12 col-xxxl-12">                        
+                          <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" >
+                            <div class="form-group row offset-md-3 col-sm-6">
+                              <label for="inputPassword" class=" col-sm-2 col-form-label font-weight-bolder">{{ "AccessComponent.Nombre_rol" | translate}}</label>
+                              <div class="col-sm-10">
+                                <input type="text" formControlName="nameAccess" class="form-control" id="inputPassword">
+                              </div>
+                            </div>
+                            <!-- Encabezados-->
+                            <nb-accordion multi>
+                              <!-- Item Modulo Configuracion -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Configuracion
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Logo Empresa</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [checked]="secondForm['logoempresa']"
+                                        formControlName="logoempresa">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Cambiar contraseña</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['changepassword']"
+                                      formControlName="changepassword">
+                                      </nb-toggle>
+                                  </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                            <!-- Item Modulo Administracion -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Administracion
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Tipo Terceros</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['thirdparties']"
+                                        formControlName="thirdparties">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Tipos Lista por Consulta</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['typeslistbyquery']"
+                                      formControlName="typeslistbyquery">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Procuraduria</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['procurator']"
+                                      formControlName="procurator">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Usuarios</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['users']"
+                                      formControlName="users">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Accesos</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['access']"
+                                      formControlName="access">
+                                      </nb-toggle>
+                                    </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                            <!-- Item Modulo Notificaciones -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Notificaciones
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Configuración</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['setting']"
+                                        formControlName="setting">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Enviadas</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['sentto']"
+                                      formControlName="sentto">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Monitoreo</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['monitoring']"
+                                      formControlName="monitoring">
+                                      </nb-toggle>
+                                    </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                              <!-- Item Modulo Consultas -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Consultas
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Individual</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['individual']"
+                                        formControlName="individual">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Masiva</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['massive']"
+                                      formControlName="massive">
+                                      </nb-toggle>
+                                  </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                              <!-- Item Modulo Listas Propias -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Listas Propias
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Tipo</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['type']"
+                                        formControlName="type">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Administrar</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['manager']"
+                                      formControlName="manager">
+                                      </nb-toggle>
+                                  </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                              <!-- Item Modulo Reportes -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Reportes
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Consulta Reporte Historico</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['historyreport']"
+                                        formControlName="historyreport">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Consultar Log</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['getlog']"
+                                      formControlName="getlog">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Consultas y Coincidencias</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['queriesandmatches']"
+                                      formControlName="queriesandmatches">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Detallado de Coincidencias</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['coincidencedetailing']"
+                                      formControlName="coincidencedetailing">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Ver Consultas Realizadas</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['viewpastconsultations']"
+                                      formControlName="viewpastconsultations">
+                                      </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Certificación Actualizacion Listas</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                      <nb-toggle status="primary" class="p-2" [checked]="secondForm['certificationlistupdates']"
+                                      formControlName="certificationlistupdates">
+                                      </nb-toggle>
+                                    </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                              <!-- Item Modulo Perfilamiento de Terceros -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Perfilamiento de Terceros
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Parametrizar variables y categorías</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['parameterscategory']"
+                                        formControlName="parameterscategory">
+                                        </nb-toggle>
+                                    </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                              <!-- Item Modulo Extras -->
+                              <nb-accordion-item [expanded]="true">
+                                <nb-accordion-item-header>
+                                  Extras
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <p>Noticias</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['news']"
+                                        formControlName="news">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Registrar ROI/Denuncia</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['roi']"
+                                        formControlName="roi">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>FAQs</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['faqs']"
+                                        formControlName="faqs">
+                                        </nb-toggle>
+                                    </div>
+                                    <div class="col-6">
+                                      <p>Señales de alerta</p>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <nb-toggle status="primary" class="p-2" [(checked)]="secondForm['signal']"
+                                        formControlName="signal">
+                                        </nb-toggle>
+                                    </div>
+                                  </div>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                            </nb-accordion>
+                            
+
+                            <div class="nav justify-content-center pt-2">
+                               
+                                <button nbButton status="primary" [disabled]="!secondForm.valid" (click)="save()" hero>Guardar</button>
+                            </div>
+                          </form>
+
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+         
+        </nb-card-footer>
+    </nb-card>
+</div>

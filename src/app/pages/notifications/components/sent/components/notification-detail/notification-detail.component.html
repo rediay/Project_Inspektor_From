@@ -1,0 +1,43 @@
+<form [formGroup]="notificationDetailForm">
+    <div class="form-group">
+        <label class="label" for="subject">Asunto</label>
+        <input fullWidth nbInput
+               id="subject"
+               formControlName="subject"
+               class="form-control" disabled>
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="to">Para</label>
+        <input fullWidth nbInput
+               id="to"
+               formControlName="to"
+               class="form-control" disabled>
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="createdAt">Fecha Envio</label>
+        <input fullWidth nbInput
+               id="createdAt"
+               formControlName="createdAt"
+               class="form-control" disabled>
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="detail">Detalle</label>
+        <input fullWidth nbInput id="detail"
+               class="form-control" disabled>
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="name">Nombre Usuario</label>
+        <input fullWidth nbInput id="name"
+               class="form-control" disabled>
+    </div>
+
+    <div class="form-group">
+        <label class="label" for="name">Usuario</label>
+        <input fullWidth nbInput id="user"
+               class="form-control" disabled>
+    </div>
+</form>

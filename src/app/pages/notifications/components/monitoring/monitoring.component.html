@@ -1,0 +1,48 @@
+<nb-card class="own-scroll">
+    <nb-card-header>BUSQUEDA NOTIFICIACIONES DE MONITOREO</nb-card-header>
+
+    <nb-card-body>
+        <form [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="search" class="form-control" placeholder="Buscar..." />
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input id="rangeDate" nbInput fullWidth placeholder="Fecha desde - Fecha hasta" formControlName="rangeDate" [nbDatepicker]="rangepicker">
+                        <nb-rangepicker #rangepicker></nb-rangepicker>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            <button (click)="onSearch()" class="align-self-center" status="primary" nbButton nbSuffix>
+              BUSCAR
+          </button>
+            <button class="ml-4" nbButton hero>
+              CANCELAR
+          </button>
+        </div>
+
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        Consulta notificaciones monitoreo
+    </nb-card-header>
+
+    <nb-card-body>
+        <nb-card-body>
+            <button (click)="ToExcel()" class="align-self-center" status="success" nbButton nbSuffix>
+            Excel
+        </button>
+        </nb-card-body>
+
+        <ng2-smart-table class="example-smart-table" [settings]="settings" [source]="source">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

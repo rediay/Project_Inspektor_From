@@ -1,0 +1,39 @@
+<div class="col-lg-12">
+    <nb-card>
+        <nb-card-header>
+            Editar variable
+        </nb-card-header>
+        <nb-card-body>
+            <form [formGroup]="variableForm">
+                <div class="form-group">
+                    <label class="label" for="name">Nombre variable</label>
+                    <input fullWidth nbInput id="name" formControlName="name"
+                           [status]="(name?.hasError('minlength') || name?.hasError('maxlength')) ? 'danger' : 'primary'"
+                           placeholder="Ingrese el número Documento">
+                    <ngx-validation-message label="First Name"
+                                            [showMinLength]="name?.hasError('minlength')"
+                                            [showMaxLength]="name?.hasError('maxlength')" minLength=3
+                                            maxLength=20></ngx-validation-message>
+                    <p class="error-message caption status-danger"
+                       *ngIf="nameError">
+                        {{nameError}}
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label class="label" for="weight">Peso</label>
+                    <input fullWidth nbInput id="weight" formControlName="weight"
+                           [status]="(weight?.hasError('minlength') || weight?.hasError('maxlength')) ? 'danger' : 'primary'"
+                           class="form-control" placeholder="Ingrese el nombre">
+                    <ngx-validation-message label="First Name"
+                                            [showMinLength]="weight?.hasError('minlength')"
+                                            [showMaxLength]="weight?.hasError('maxlength')" minLength=3
+                                            maxLength=20></ngx-validation-message>
+                </div>
+            </form>
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton status="primary" [disabled]="!variableForm.valid" (click)="save()" hero>Guardar</button>
+        </nb-card-footer>
+    </nb-card>
+</div>
